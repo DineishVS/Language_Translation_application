@@ -1,18 +1,14 @@
+// vercel.json
 {
   "version": 2,
   "builds": [
     {
-      "src": "translation_project/requirements.txt",
+      "src": "translation_project/wsgi.py",
       "use": "@vercel/python",
       "config": {
-        "maxLambdaSize": "50mb"
+        "includeFiles": ["requirements.txt"],
+        "buildCommand": "apt-get update && apt-get install -y portaudio19-dev && pip3 install -r requirements.txt"
       }
     }
-  ],
-  "builds": [
-    { "src": "translation_project/requirements.txt", "use": "@vercel/python" }
-  ],
-  "env": {
-    "PIP_CACHE_DIR": "/vercel/.pip/cache"
-  }
+  ]
 }
