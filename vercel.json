@@ -1,4 +1,3 @@
-// vercel.json
 {
   "version": 2,
   "builds": [
@@ -6,9 +5,19 @@
       "src": "translation_project/wsgi.py",
       "use": "@vercel/python",
       "config": {
-        "includeFiles": ["requirements.txt"],
-        "buildCommand": "apt-get update && apt-get install -y portaudio19-dev && pip3 install -r requirements.txt"
+        "maxLambdaSize": "50mb"
       }
     }
-  ]
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "translation_project/wsgi.py"
+    }
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "translation_project.settings",
+    "PYTHONUNBUFFERED": "1"
+  },
+  "buildCommand": "apt-get update && apt-get install -y portaudio19-dev && pip install -r translation_project/requirements.txt"
 }
